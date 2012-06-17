@@ -104,6 +104,21 @@ public class MinimumSolver {
 
     @Override
     public int compareTo(Score o) {
+
+      /*
+       * Standard Weight = size adjusted for weight; when comparing two sizes with each other taking weight into account, the size
+       *                   must first be adjusted to make comparison possible.  This adjustment by dividing by weight transforms
+       *                   the size into a size that can be compared as if both sizes had equal weights.  The naming is unfortunate,
+       *                   better would have been to call it StandardSize. TODO rename to standard size, or weightAdjustedSize
+       *
+       * The neediest column is defined as the one that:
+       * - violates the most minimums as part of a group; the more groups it is part of the more minimums it could possibly violate
+       * - is contained in a group that has reached its maximum; columns not having reached a maximum are preferred
+       * - the lowest group standard weight; note that these are inverted, so the highest value wins TODO swap that around for clarity
+       * - the lowest column standard weight; see note above
+       * - the highest unadjusted weight value
+       */
+
       int result = Double.compare(minimum, o.minimum);
 
       if(result == 0) {
